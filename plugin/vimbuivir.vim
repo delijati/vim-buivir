@@ -7,15 +7,16 @@ else
     finish
 endif
 
-fun! BuiVirActivate()
+fun! BuiVirActivate(...)
 Python << EOF
+import vim
 if 'vimbuivir' not in sys.modules:
     import vimbuivir
 else:
     import imp
     # Reload python module to avoid errors when updating plugin
     vimbuivir = imp.reload(vimbuivir)
-vimbuivir.activate()
+vimbuivir.activate(vim.eval('get(a:, 1, ".")'))
 EOF
 endfun
 
@@ -24,5 +25,5 @@ execute "Python import sys"
 execute "Python sys.path.append(r'" . expand("<sfile>:p:h:h") . "')"
 
 " register command
-command! -register BuiVirActivate call BuiVirActivate()
+command! -nargs=? BuiVirActivate call BuiVirActivate(<f-args>)
 " call BuiVirActivate()

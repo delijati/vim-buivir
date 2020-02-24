@@ -4,9 +4,11 @@ import sys
 import vim
 
 
-def activate():
-    buildout_path = os.path.join(os.path.abspath("."), "bin", "py")
-    envdir = os.path.join(os.path.abspath("."), "env")
+def activate(path):
+    print("Seaching: <<path:%s>>" % path)
+    absp = os.path.abspath(path)
+    buildout_path = os.path.join(absp, "bin", "py")
+    envdir = os.path.join(absp, "env")
     virtualenv_path = os.path.join(envdir, "bin", "activate_this.py")
 
     # XXX the global is anyway activated
